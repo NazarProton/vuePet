@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
-  apiKey: '',
+  apiKey: 'AIzaSyAPnrowX-K-NrSBN_iOIWSF9xyE5VNtxek',
   authDomain: 'work-test-todo.firebaseapp.com',
   databaseURL:
     'https://work-test-todo-default-rtdb.europe-west1.firebasedatabase.app',
