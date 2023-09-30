@@ -3,7 +3,6 @@ import { ref } from 'vue';
 import { registerData } from '~/components/models';
 import { useUsersStore } from '~/stores/UsersStore';
 const userStore = useUsersStore();
-const route = useRoute();
 
 const options = ['male', 'female', 'other'];
 const formData = ref<registerData>({
@@ -15,8 +14,10 @@ const formData = ref<registerData>({
 });
 const signUp = async () => {
   userStore.signUpCurrentUser(formData.value);
-  navigateTo('/users');
 };
+definePageMeta({
+  middleware: 'hiden-routs',
+});
 </script>
 
 <template>

@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
 import { useUsersStore } from '~/stores/UsersStore';
-const userStore = storeToRefs(useUsersStore());
-// definePageMeta({
-//   middleware: 'protected-routes',
-// });
-console.log(userStore.isLoading);
+const userStore = useUsersStore();
+if (userStore.currentUser) {
+  userStore.changeLoaderStatus(true);
+}
 </script>
 
 <template>
-  <Loader v-if="userStore.isLoading.value" />
+  <Loader v-if="userStore.isLoading" />
   <q-layout v-else view="hHh lpR fFf">
     <q-header
       elevated

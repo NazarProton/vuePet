@@ -3,7 +3,6 @@
     <q-page-container>
       <q-page class="flex flex-center bg-grey-2">
         <q-card class="q-pa-md shadow-2 my_card" bordered>
-          <!-- <div v-if="currentUser.email">{{ currentUser.email }}</div> -->
           <q-card-section class="text-center">
             <div class="text-grey-9 text-h5 text-weight-bold">Sign In</div>
             <div class="text-grey-8">
@@ -57,7 +56,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { LoginData, registerData } from '~/components/models';
+import { LoginData } from '~/components/models';
 import { useUsersStore } from '~/stores/UsersStore';
 
 const usersStore = useUsersStore();
@@ -67,8 +66,10 @@ const formData = ref<LoginData>({
 });
 const signIn = () => {
   usersStore.signInCurrentUser(formData.value);
-  navigateTo('/users');
 };
+definePageMeta({
+  middleware: 'hiden-routs',
+});
 </script>
 
 <style>

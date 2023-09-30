@@ -3,7 +3,6 @@ import { registerData } from '~/components/models';
 import { defineStore } from 'pinia';
 import authService from '~/services/auth.service';
 import userService from '~/services/users.service';
-import { getDatabase, ref, child, get } from 'firebase/database';
 import localStorageService, {
   getUserId,
 } from '~/services/localStorrage.service';
@@ -20,21 +19,25 @@ export const useUsersStore = defineStore('users', {
     getCurrentUser: (state) => state.currentUser,
   },
   actions: {
+    changeCurrentUser(value: currentUser) {
+      this.currentUser = value;
+    },
+    changeUsers(value: currentUser) {
+      this.users = value;
+    },
     changeLoaderStatus(value: boolean) {
       this.isLoading = value;
     },
     signUpCurrentUser(data: registerData) {
-      authService.register(data).then((newUser) => {
-        if (newUser) {
-          this.currentUser = newUser;
-        }
+      authService.register(data).then(() => {
+        userService.getUsers();
+        navigateTo('/users');
       });
     },
     signInCurrentUser(data: LoginData) {
       authService.login(data).then(() => {
-        // if (newUser) {
-        //   this.currentUser = newUser;
-        // }
+        userService.getUsers();
+        navigateTo('/users');
       });
     },
     async logout() {
@@ -42,6 +45,7 @@ export const useUsersStore = defineStore('users', {
         await auth.signOut();
         localStorageService.removeAuthData();
         this.currentUser = null;
+        navigateTo('/');
         console.log('Користувач вийшов з системи.');
       } catch (error) {
         console.error('Помилка при виході користувача:', error);
@@ -56,36 +60,7 @@ export const useUsersStore = defineStore('users', {
       this.userById = userById;
     },
     async fill() {
-      console.log(this.isLoading, 'BEFORE CHANGE');
-      this.isLoading = true;
-      console.log(this.isLoading, 'AFTER CHANGE');
-      const dbRef = ref(getDatabase());
-      get(child(dbRef, `users`))
-        .then((snapshot) => {
-          console.log(this.isLoading, 'before IF');
-          if (snapshot.exists()) {
-            let currentUserId = getUserId();
-            const allUsers = snapshot.val();
-            this.users = allUsers;
-            for (let key in allUsers) {
-              if (key === currentUserId) {
-                this.currentUser = allUsers[key];
-              }
-            }
-            console.log(this.isLoading, 'in if');
-          } else {
-            console.log(this.isLoading, 'in else');
-            console.log('No data available');
-          }
-        })
-        .then(() => {
-          console.log(this.isLoading, 'IN THEN');
-          this.isLoading = false;
-          console.log(this.isLoading, 'AFTRER CHANGE');
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      userService.getUsers();
     },
   },
 });

@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <q-container class="mt-12">
+    <div class="mt-12">
       <q-card flat>
         <q-card-section>
           <h2 class="q-mb-md">Ласкаво просимо!</h2>
@@ -10,7 +10,7 @@
           <q-btn to="/users" color="primary" label="Перейти до користувачів" />
         </q-card-actions>
       </q-card>
-    </q-container>
+    </div>
   </q-page>
 </template>
 

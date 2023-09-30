@@ -1,27 +1,27 @@
 <script setup lang="ts">
+import { getAccessToken } from '~/services/localStorrage.service';
 import { useUsersStore } from '~/stores/UsersStore';
-import { storeToRefs } from 'pinia';
 useHead({
   title: 'Postagram',
 });
+
 const route = useRoute();
 const usersStore = useUsersStore();
-const { currentUser } = storeToRefs(usersStore);
 const logout = () => {
   usersStore.logout();
 };
 </script>
 <template>
   <q-btn-dropdown
-    v-if="currentUser"
+    v-if="usersStore.currentUser"
     color="dark"
-    :label="`${currentUser?.name}`"
+    :label="`${usersStore.currentUser?.name}`"
   >
     <q-list>
       <q-item
         clickable
         v-close-popup
-        @click="navigateTo(`/users/${currentUser?.id}`)"
+        @click="navigateTo(`/users/${usersStore.currentUser?.id}`)"
       >
         <q-item-section>
           <q-item-label>Profile</q-item-label>

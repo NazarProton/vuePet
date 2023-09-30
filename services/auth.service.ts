@@ -48,9 +48,7 @@ const authService = {
       onAuthStateChanged(auth, (user) => {
         if (user) {
           const userRef = ref(database, `users/${user.uid}`);
-          set(userRef, newUser).then(() => {
-            newUser.isLoggedin = true;
-          });
+          set(userRef, newUser);
         } else {
           console.log('Користувач не залогінений.');
         }
@@ -76,7 +74,6 @@ const authService = {
         idToken,
         localId: user.uid,
       });
-
       console.log('Користувач успішно ввійшов в систему.');
       return user;
     } catch (error) {
