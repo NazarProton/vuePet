@@ -13,15 +13,15 @@ const logout = () => {
 </script>
 <template>
   <q-btn-dropdown
-    v-if="usersStore.currentUser"
+    v-if="usersStore.currentUser.name"
     color="dark"
-    :label="`${usersStore.currentUser?.name}`"
+    :label="`${usersStore.currentUser.name}`"
   >
     <q-list>
       <q-item
         clickable
         v-close-popup
-        @click="navigateTo(`/users/${usersStore.currentUser?.id}`)"
+        @click="navigateTo(`/users/${usersStore.currentUser.id}`)"
       >
         <q-item-section>
           <q-item-label>Profile</q-item-label>

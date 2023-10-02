@@ -7,6 +7,10 @@ export interface currentUser {
   isLoggedin?: boolean;
 }
 
+export interface IUsers {
+  [id: string]: currentUser;
+}
+
 export interface registerData extends currentUser {
   password: string;
 }

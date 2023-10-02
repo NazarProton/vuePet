@@ -9,7 +9,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
     if (!acessToken && (to.path === '/users' || to.path === '/posts')) {
       return navigateTo('/signIn');
     }
-    if (acessToken && !usersStore.currentUser) {
+    if (acessToken && !usersStore.currentUser.name) {
       usersStore.fill();
     }
   }

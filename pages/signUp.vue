@@ -25,71 +25,95 @@ definePageMeta({
     <q-page-container>
       <q-page class="flex flex-center bg-grey-2">
         <q-card class="q-pa-md shadow-2 my_card" bordered>
-          <!-- <div v-if="currentUser.email">{{ currentUser.email }}</div> -->
-          <q-card-section class="text-center">
-            <div class="text-grey-9 text-h5 text-weight-bold">Sign Up</div>
-            <div class="text-grey-8">
-              You have to create new account to get access to our data
-            </div>
-          </q-card-section>
-          <q-card-section>
-            <q-input
-              dense
-              outlined
-              v-model="formData.name"
-              label="Name"
-            ></q-input>
-            <q-input
-              dense
-              outlined
-              v-model="formData.lastName"
-              label="Last Name"
-            ></q-input>
-            <q-select
-              class="my-1"
-              v-model="formData.sex"
-              :options="options"
-              label="Sex"
-            />
-            <q-input
-              dense
-              outlined
-              v-model="formData.email"
-              label="Email Address"
-            ></q-input>
-            <q-input
-              dense
-              outlined
-              class="q-mt-md"
-              v-model="formData.password"
-              type="password"
-              label="Password"
-            ></q-input>
-          </q-card-section>
-          <q-card-section>
-            <q-btn
-              style="border-radius: 8px"
-              color="dark"
-              rounded
-              size="md"
-              label="Sign Up"
-              no-caps
-              class="full-width"
-              @click="signUp"
-            ></q-btn>
-          </q-card-section>
-          <q-card-section class="text-center q-pt-none">
-            <div class="text-grey-8">
-              Already have an account?
+          <q-form @submit="signUp" class="q-gutter-md">
+            <q-card-section class="text-center">
+              <div class="text-grey-9 text-h5 text-weight-bold">Sign Up</div>
+              <div class="text-grey-8">
+                You have to create new account to get access to our data
+              </div>
+            </q-card-section>
+            <q-card-section>
+              <q-input
+                dense
+                outlined
+                v-model="formData.name"
+                label="Name"
+                lazy-rules
+                :rules="[
+                  (val) => (val && val.length > 0) || 'Please type your name',
+                ]"
+              ></q-input>
+              <q-input
+                dense
+                outlined
+                v-model="formData.lastName"
+                label="Last Name"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Please type your last name',
+                ]"
+              ></q-input>
+              <q-select
+                class="my-1"
+                v-model="formData.sex"
+                :options="options"
+                label="Sex"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Please choose your gender',
+                ]"
+              />
+              <q-input
+                dense
+                outlined
+                v-model="formData.email"
+                label="Email Address"
+                lazy-rules
+                :rules="[
+                  (val) => (val && val.length > 0) || 'Please type your email',
+                ]"
+              ></q-input>
+              <q-input
+                dense
+                outlined
+                class="q-mt-md"
+                v-model="formData.password"
+                type="password"
+                label="Password"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) || 'Please type your passworn',
+                ]"
+              ></q-input>
+            </q-card-section>
+            <q-card-section>
               <q-btn
-                to="/signIn"
-                class="text-dark text-weight-bold"
-                style="text-decoration: none"
-                >Sign In.</q-btn
-              >
-            </div>
-          </q-card-section>
-        </q-card>
+                type="submit"
+                style="border-radius: 8px"
+                color="dark"
+                rounded
+                size="md"
+                label="Sign Up"
+                no-caps
+                class="full-width"
+              ></q-btn>
+            </q-card-section>
+            <q-card-section class="text-center q-pt-none">
+              <div class="text-grey-8">
+                Already have an account?
+                <q-btn
+                  to="/signIn"
+                  class="text-dark text-weight-bold"
+                  style="text-decoration: none"
+                  >Sign In.</q-btn
+                >
+              </div>
+            </q-card-section>
+          </q-form></q-card
+        >
       </q-page>
     </q-page-container>
   </q-layout>

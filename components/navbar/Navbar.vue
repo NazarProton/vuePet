@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useUsersStore } from '~/stores/UsersStore';
 const userStore = useUsersStore();
-if (userStore.currentUser) {
+if (userStore.currentUser.name) {
   userStore.changeLoaderStatus(true);
 }
 </script>

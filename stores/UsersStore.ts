@@ -1,4 +1,4 @@
-import { LoginData, currentUser } from './../components/models';
+import { IUsers, LoginData, currentUser } from './../components/models';
 import { registerData } from '~/components/models';
 import { defineStore } from 'pinia';
 import authService from '~/services/auth.service';
@@ -10,19 +10,20 @@ import { auth } from '~/services/firebase';
 
 export const useUsersStore = defineStore('users', {
   state: () => ({
-    currentUser: null as currentUser | null,
-    users: null as currentUser | null,
-    userById: null as currentUser | null,
+    currentUser: {} as currentUser,
+    users: {} as IUsers,
+    userById: {} as currentUser,
     isLoading: false,
   }),
   getters: {
     getCurrentUser: (state) => state.currentUser,
+    // getUserById: (state,payload) => state.currentUser,
   },
   actions: {
     changeCurrentUser(value: currentUser) {
       this.currentUser = value;
     },
-    changeUsers(value: currentUser) {
+    changeUsers(value: IUsers) {
       this.users = value;
     },
     changeLoaderStatus(value: boolean) {
